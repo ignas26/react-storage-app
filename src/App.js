@@ -38,7 +38,12 @@ class App extends React.Component {
   switchCat = activeCat=>this.setState({activeCat});
 
   removeItem = (id) => {
-    const items = this.state.items.filter(item => item.category !== id.category);
+    const items = this.state.items.filter(item => item.name !== id.name);
+    this.setState({items})
+  };
+
+  addItem= (newItem) => {
+    const items = [...this.state.items, newItem];
     this.setState({items})
   };
 
@@ -51,7 +56,7 @@ class App extends React.Component {
 
     switch (this.state.activeTab){
       case 'Items' : return <Items activeCat={this.state.activeCat} items={this.state.items}/>;
-      case 'AddItems' : return <AddItems activeCat={this.state.activeCat} removeItem={this.removeItem} items={this.state.items}/>;
+      case 'AddItems' : return <AddItems activeCat={this.state.activeCat} removeItem={this.removeItem} items={this.state.items} addItem={this.addItem} cats={this.state.categories}/>;
       case 'Categories' : return <Categories addCategory={this.addCategory}/>;
       case 'Statistics' : return <Statistics/>;
       default : return null
