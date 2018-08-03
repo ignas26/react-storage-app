@@ -1,36 +1,34 @@
 import React from 'react';
 import AddItems from './components/AddItems';
-import Categories from './components/Categories';
 import Header from './components/Header';
-import Items from './components/Items';
+import Landing from './components/Landing';
 import Sidebar from './components/Sidebar';
 import Statistics from './components/Statistics';
 
 class App extends React.Component {
   state={
-    tabs:['Items', 'AddItems', 'Categories', 'Statistics'],
-    activeTab:'Items',
+    tabs:['Landing', 'AddItems', 'Statistics'],
+    activeTab:0,
     categories: ['keyboards', 'monitors', 'laptops', 'hardDrives'],
     items:[
 
-        {name: 'logitech', price: 100 , category:'keyboards'},
-        {name: 'logitech turbo', price: 200, category:'keyboards'},
-        {name: 'logitech ultra', price: 300, category:'keyboards'},
+        {name: 'logitech', price: 100 , id:0},
+        {name: 'logitech turbo', price: 200, id:0},
+        {name: 'logitech ultra', price: 300, id:0},
 
-        {name: 'asus', price: 100, category:'monitors'},
-        {name: 'samsung', price: 200, category:'monitors'},
-        {name: 'lg', price: 300, category:'monitors'},
+        {name: 'asus', price: 100, id:1},
+        {name: 'samsung', price: 200, id:1},
+        {name: 'lg', price: 300, id:1},
 
-        {name: 'toshiba', price: 500, category:'laptops'},
-        {name: 'dell', price: 600, category:'laptops'},
-        {name: 'mac', price: 700, category:'laptops'},
+        {name: 'toshiba', price: 500, id:2},
+        {name: 'dell', price: 600, id:2},
+        {name: 'mac', price: 700, id:2},
 
-        {name: 'wd', price: 150, category:'hardDrives'},
-        {name: 'panasonic', price: 250, category:'hardDrives'},
-        {name: 'acme', price: 350, category:'hardDrives'}
-
+        {name: 'wd', price: 150, id:3},
+        {name: 'panasonic', price: 250, id:3},
+        {name: 'acme', price: 350, id:3}
     ],
-    activeCat: 'Keyboards'
+    activeCat:0,
   };
 
   switchTab = activeTab=>this.setState({activeTab});
@@ -53,34 +51,22 @@ class App extends React.Component {
   };
 
   renderContent = ()=>{
-
     switch (this.state.activeTab){
-      case 'Items' : return <Items activeCat={this.state.activeCat} items={this.state.items}/>;
+      case 'Landing' : return <Landing cats={this.state.categories} items={this.state.items} activeCat={this.state.activeCat}/>;
       case 'AddItems' : return <AddItems activeCat={this.state.activeCat} removeItem={this.removeItem} items={this.state.items} addItem={this.addItem} cats={this.state.categories}/>;
-      case 'Categories' : return <Categories addCategory={this.addCategory}/>;
       case 'Statistics' : return <Statistics/>;
       default : return null
-    }
+      }
   };
-
-  // renderContent2 = ()=>{
-  //
-  //   switch (this.state.activeCat){
-  //     case 'keyboards' : return <Keyboards items={this.state.keyboards}/>;
-  //     case 'monitors' : return (this.state.monitors);
-  //     case 'laptops' : return (this.state.laptops);
-  //     case 'hardDrives' : return (this.state.hardDrives);
-  //     default : return null
-  //     }
-  //   };
-
 
   render() {
     return (
         <div>
           <Header switchTab={this.switchTab} tabs={this.state.tabs}/>
+          <div className='routes-parent'>
           <Sidebar switchCat={this.switchCat} cats={this.state.categories}/>
-          {this.renderContent()}
+          <div className="render-parent">{this.renderContent()}</div>
+          </div>
         </div>
     )
   }

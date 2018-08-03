@@ -1,25 +1,23 @@
-              import React from 'react';
+import React from 'react';
 
 
 const Header = (props)=>{
 
   const tabs = props.tabs.map(tab=>{
     return (
-        <li onClick={()=>props.switchTab(tab)}
+        <div className="tabs" onClick={()=>props.switchTab(tab)}
             key={tab}>
           {tab}
-        </li>
+        </div>
     )
   });
 
   return(
       <header>
         <h2>storage</h2>
-        <ul>
-          <li>
+          <div>
           {tabs}
-          </li>
-        </ul>
+          </div>
       </header>
   )
 };

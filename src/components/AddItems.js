@@ -2,7 +2,7 @@ import React from 'react';
 
 class AddItems extends React.Component{
   state={
-    temp: {name:'', price:''}
+    temp: {name:'', price:'', category:this.props.cats[0]}
   };
 
   handleInput = (value, type) => {
@@ -11,43 +11,63 @@ class AddItems extends React.Component{
     this.setState({temp: {...this.state.temp, [type]: value}})
   };
 
-  handleCat = (value) =>{
-  if(this.handleInput) this.setState({temp: {...this.state.temp, value}})
+
+
+
+  handleSelect = (value) => {
+    const laikinas = {...this.state.temp};
+    laikinas.category = value;
+
+
+    this.setState({temp: laikinas})
   };
+
+
+
 
   render(){
 
   const items = this.props.items.map((item, i)=>{
     return (
-        <li key={i}>
+        <div key={i}>
           Item: {item.name}
           <span>
           Price: {item.price}</span>
     <span
         onClick={() => this.props.removeItem(item)}
         className="delete">X</span>
-  </li>
+  </div>
     )
   });
 
-const ItemToCat= this.props.cats.map((cat, i)=>{
-  const filtered=this.props.items.filter((item)=>item.category === cat);
-  return(
-      <div
-        key={i}
-      onSelect={(i)=>{filtered(i)}}
-      >
-        <h4>aaa</h4>
-      </div>
-  )
-});
+    const options = this.props.cats.map((cat, i)=>{
+    return(
+     <option
+       value = {cat}
+       key={i}>
+       {cat}
+       </option>
+    )
+    });
 
+    const itemsai = this.props.items.map((item, i)=>{
+      return item.id
+    });
+
+    const bendras = itemsai === options;
 
   return (
       <div>
         <div className="categories">
           <div className="input">
-            <select onClick={() => this.handleCat({ItemToCat}) } />
+
+            <select
+            defaultValue={this.props.cats[0]}
+            onChange={(e)=>this.handleSelect(e.target.value)}
+            >
+              {bendras}
+            </select>
+
             <input
                 onChange={(e) => this.handleInput(e.target.value, 'name')}
                 value={this.state.temp.name}

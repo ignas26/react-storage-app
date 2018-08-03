@@ -2,22 +2,23 @@ import React from 'react';
 
 
 const Sidebar = (props)=>{
-  const cats=props.cats.map((cat)=>{
+  const cats=props.cats.map((cat, i)=>{
     return(
-        <li onClick={()=>props.switchCat(cat)}
+        <div onClick={()=>props.switchCat(i)}
             key={cat}>
           {cat}
-        </li>
+        </div>
     )
   });
 
+
   return (
       <div className="sidebar">
-        <ul className="sidebar-ul">
-          <li className="sidebar-li">
+        <div className="sidebar-ul">
+          <div className="sidebar-li">
         {cats}
-          </li>
-        </ul>
+          </div>
+        </div>
       </div>
   );
 };
